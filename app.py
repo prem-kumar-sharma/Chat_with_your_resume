@@ -31,21 +31,17 @@ def preprocess_text(text):
     cleaned_text = re.sub(r'[^\w\s]', '', cleaned_text)
     return cleaned_text.strip()
 
-# Function to query the OpenAI API using the updated method
+# Function to query the OpenAI API
 def query_resume_model(prompt, cleaned_resume_text):
     full_prompt = f"Based on the following resume: {cleaned_resume_text}\n\n{prompt}"
-    try:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",  # or "gpt-4"
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": full_prompt}
-            ]
-        )
-        return response.choices[0].message['content']
-    except Exception as e:
-        st.error(f"An error occurred while querying the API: {e}")
-        return ""
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",  # Use "gpt-3.5-turbo" or "gpt-4"
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": full_prompt}
+        ]
+    )
+    return response['choices'][0]['message']['content'].strip()
 
 # Streamlit App
 st.title("Chat With Your Resume")
