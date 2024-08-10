@@ -36,13 +36,13 @@ def query_resume_model(prompt, cleaned_resume_text):
     full_prompt = f"Based on the following resume: {cleaned_resume_text}\n\n{prompt}"
     try:
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model="gpt-3.5-turbo",  # or "gpt-4"
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": full_prompt}
             ]
         )
-        return response.choices[0].message['content'].strip()
+        return response.choices[0].message['content']
     except Exception as e:
         st.error(f"An error occurred while querying the API: {e}")
         return ""
