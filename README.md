@@ -22,19 +22,19 @@ To run this project locally, you need to have Python installed. Follow the steps
    ```bash
    git clone https://github.com/your-username/chat-with-your-resume.git
    cd chat-with-your-resume
-2. **Create and Activate a Virtual Environment (Optional but Recommended)
+2. **Create and Activate a Virtual Environment (Optional but Recommended)**
 
 python -m venv venv
 source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 
-3. **Install the Required Packages
+3. **Install the Required Packages**
 
 Install the necessary Python packages using pip:
 
 
 pip install -r requirements.txt
 
-4. **Set Up Environment Variables
+4. **Set Up Environment Variables**
 
 Create a .env file in the root directory of the project and add your OpenAI API key:
 
@@ -50,12 +50,16 @@ This will start the Streamlit server and open the app in your default web browse
 
 ## Project Structure
 app.py: The main Python script that runs the Streamlit app.
+
 requirements.txt: A file listing all the Python dependencies required for the project.
+
 .env: A file to store environment variables like the OpenAI API key (not included in the repository for security reasons).
+
 ##Example
+
 After launching the app, you can:
 
-1.Upload your resume in PDF format.
+1. Upload your resume in PDF format.
 2. Ask questions about your resume in the provided input box.
 3. Receive AI-generated responses based on the content of your resume.
 Screenshots
