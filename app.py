@@ -34,14 +34,18 @@ def preprocess_text(text):
 # Function to query the OpenAI API
 def query_resume_model(prompt, cleaned_resume_text):
     full_prompt = f"Based on the following resume: {cleaned_resume_text}\n\n{prompt}"
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",  # Use "gpt-3.5-turbo" or "gpt-4"
-        messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": full_prompt}
-        ]
-    )
-    return response['choices'][0]['message']['content'].strip()
+    try:
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",  # Use "gpt-3.5-turbo" or "gpt-4"
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": full_prompt}
+            ]
+        )
+        return response['choices'][0]['message']['content'].strip()
+    except Exception as e:
+        st.error(f"An error occurred while querying the API: {e}")
+        return ""
 
 # Streamlit App
 st.title("Chat With Your Resume")
@@ -51,7 +55,7 @@ uploaded_file = st.file_uploader("Upload your resume PDF", type="pdf")
 
 if uploaded_file is not None:
     # Save the uploaded file to a local directory
-    save_dir = "C:/Users/virat/Desktop/chatwithprem/uploads"
+    save_dir = os.path.join(os.getcwd(), "uploads")
     os.makedirs(save_dir, exist_ok=True)
     pdf_path = os.path.join(save_dir, uploaded_file.name)
     
@@ -63,6 +67,7 @@ if uploaded_file is not None:
     cleaned_resume_text = preprocess_text(resume_text)
     
     st.subheader("Extracted Resume Text")
+    # Optionally display the extracted text
     # st.write(resume_text)
 
     # Input box for user questions
